@@ -15,10 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.cavernasedragoes.domain.model.Raca;
 import com.cavernasedragoes.domain.repository.RacaRepository;
-import com.cavernasedragoes.domain.service.CadastroRacaService;
 
 
 @RestController
@@ -28,9 +26,6 @@ public class RacaController {
 
     @Autowired
     private RacaRepository racaRepository;
-
-    @Autowired
-    private CadastroRacaService cadastroRaca;
 
     @GetMapping
     @ApiOperation(value=" Retorna uma lista de todas as raças.")
@@ -54,7 +49,7 @@ public class RacaController {
     @ApiOperation(value="Cria uma nova raça, retornando a mesma")
     public ResponseEntity<?> adicionar(@RequestBody Raca raca) {
         try {
-            raca = cadastroRaca.salvar(raca);
+            raca = racaRepository.save(raca);
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(raca);
@@ -73,7 +68,7 @@ public class RacaController {
 
             if (racaAtual != null) {
                 BeanUtils.copyProperties(novaRaca, racaAtual.get(), "id");
-                racaAtual = Optional.ofNullable(cadastroRaca.salvar(racaAtual.get()));
+                racaAtual = Optional.ofNullable(racaRepository.save(racaAtual.get()));
                 return ResponseEntity.ok(racaAtual);
             }
 
