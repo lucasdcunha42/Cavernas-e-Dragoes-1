@@ -63,7 +63,7 @@ public class ClasseController {
         try {
             Optional<Classe> classeAtual = classeRepository.findById(classeId);
 
-            if (classeAtual != null) {
+            if (classeAtual.isPresent()) {
                 BeanUtils.copyProperties(novaClasse, classeAtual.get(),"id");
                 classeAtual = Optional.ofNullable(classeRepository.save(classeAtual.get()));
                 return ResponseEntity.ok(classeAtual);
@@ -80,7 +80,7 @@ public class ClasseController {
                                                @RequestBody Map<String, Object> campos) {
         Optional<Classe> classeAtual = classeRepository.findById(classeId);
 
-        if (classeAtual == null){
+        if (classeAtual.isEmpty()){
             return ResponseEntity.notFound().build();
         }
 
