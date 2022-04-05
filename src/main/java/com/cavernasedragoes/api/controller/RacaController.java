@@ -86,7 +86,7 @@ public class RacaController {
                                               @RequestBody Map<String, Object> campos) {
         Optional<Raca> racaAtual = racaRepository.findById(racaId);
 
-        if (racaAtual == null) {
+        if (racaAtual.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
