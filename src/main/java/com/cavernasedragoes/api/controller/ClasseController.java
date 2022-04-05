@@ -74,7 +74,7 @@ public class ClasseController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @PatchMapping("/{classeId")
+    @PatchMapping("/{classeId}")
     @ApiOperation(value="Atualiza uma classe parcialmente")
     public  ResponseEntity<?> atualizarParcial(@PathVariable Long classeId,
                                                @RequestBody Map<String, Object> campos) {
